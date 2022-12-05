@@ -1,5 +1,6 @@
 from functools import reduce
 import re
+import copy
 
 with open ("./data.txt","r") as f:
     data = f.read().splitlines()
@@ -37,27 +38,36 @@ for c in crateData:
         if len(crate) == 1:
             stacks[x].append(crate[0])
 
+def moveEm9000(stacks, moves):
+    s = copy.deepcopy(stacks)
+
+    for m in moves:
+        for n in range(m[0]):
+            
+            crate = s[m[1]-1][0]
+            s[m[2]-1].insert(0, crate)
+            s[m[1]-1].remove(crate)
+    return s
+
+def moveEm9001(stacks, moves):
+    s = copy.deepcopy(stacks)
+    for m in moves:
+        for n in range(m[0]):
+            
+            crate = s[m[1]-1][0]
+            s[m[2]-1].insert(n, crate)
+            s[m[1]-1].remove(crate)
+    return s
+
+def getCode(stacks):
+    code = ""
+    for s in stacks:
+        code += s[0]
+    return code
+
 print(stacks)
-
-print(moves)
-
-for m in moves:
-    print(m)
-    for n in range(m[0]):
-        print("moving {c} from {o} to {d}".format(c = crate, o = m[1], d = m[2]))
-        
-        crate = stacks[m[1]-1][0]
-        stacks[m[2]-1].insert(0, crate)
-        stacks[m[1]-1].remove(crate)
-
+print("part 1 code: {c}".format(c = getCode(moveEm9000(stacks, moves))))
 
 print(stacks)
-
-
-code = ""
-for s in stacks:
-    code += s[0]
-
-
-print(code)
+print("part 2 code: {c}".format(c = getCode(moveEm9001(stacks, moves))))
 
