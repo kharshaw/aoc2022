@@ -5,11 +5,11 @@ with open("./data.txt","r") as f:
 f.close()
 
 def movetail(head, tail, rope):
-    
+    if (head == len(rope)-1): return
     knot = 0
     dx = rope[head]["x"] - rope[tail]["x"]
     dy = rope[head]["y"] - rope[tail]["y"]
-    #print("head at x:{x} y:{y}".format(x=hx,y=hy))
+    
     if tail < len(rope):
         while abs(dx) > 1 or abs(dy) > 1:
 
@@ -30,8 +30,11 @@ def movetail(head, tail, rope):
 
 def initializeRope(knotCount):
     rope = []
+
     for i in range(0,knotCount):
-        rope.append({"x": 0, "y": 0, "visits": set("[0:0]")})
+        visits = set()
+        visits.add("0:0")        
+        rope.append({"x": 0, "y": 0, "visits": visits})
     return rope
 
 def move(rope, moves):
@@ -56,10 +59,13 @@ def move(rope, moves):
 moves = data.splitlines()
 
 rope1 = initializeRope(2)
-
 move(rope1, moves)
+print("p1: {p1}".format(p1 = reduce(lambda acc, val: acc + len(val["visits"]), rope1[1:],0)))
 
-print("p1: {p1}".format(p1 = reduce(lambda acc, val: acc + len(val["visits"]), rope1)))
+
+rope2 = initializeRope(10)
+move(rope2, moves)
+print("p2: {p2}".format(p2 = len(rope2[-1]["visits"])))
 
 
 
