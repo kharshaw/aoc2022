@@ -44,8 +44,6 @@ opcycle = 1
 display = initdisplay()
 
 for line in data.splitlines():
-    
-    #print(line)
     done = False
     opcycle = 1
 
@@ -65,7 +63,6 @@ for line in data.splitlines():
                 addend = int((line.split())[1])
                 done = True
 
-        #print("     op: {o} opcycle:{oc} cycle:{c} X:{X} addend:{a}".format(c=cycle,X=X,a=addend,o=op,oc=opcycle))    
         setPixel(cycle, X, display)
 
         cycle += 1
@@ -75,7 +72,6 @@ for line in data.splitlines():
             print("cycle:{c} X: {x} strength: {s}".format(c = cycle, x = X, s = cycle * X))  
 
 X += addend 
-#print("     op: {o} opcycle:{oc} cycle:{c} X:{X} addend:{a}".format(c=cycle,X=X,a=addend,o=op,oc=opcycle))    
 
 if processCycle(cycle):
     totalSignalStrength += cycle * X
